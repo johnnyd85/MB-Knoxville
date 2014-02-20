@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
+<meta charset="utf-8" />
 <title>Knoxville Mountain Biking</title>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -12,12 +12,15 @@
   <script src="script.js"></script>
 </head>
 <body>
+
   <script type="text/x-handlebars" data-template-name="application">
     <h1>Knoxville Mountain Biking</h1>
     {{#link-to 'index' tagName='a'}}Home{{/link-to}}
     {{#link-to 'rides' tagName='a'}}Rides{{/link-to}}
-    {{outlet}}
+    <!-- Load current template -->
+    {{ outlet }}
   </script>
+
   <script type="text/x-handlebars" data-template-name="index">
     <h2>Setup by:</h2>
     <ul>
@@ -26,15 +29,11 @@
       {{/each}}
     </ul>
   </script>
+
   <script type="text/x-handlebars" data-template-name="rides">
     <h2>Awesome Rides Include</h2>
-
-
-	{{#each}}
-        <li>{{title}}</li>
-      	{{/each}}
-
-
+    {{view App.DataTableView ridesBinding="model"}}
   </script>
+
 </body>
 </html>
