@@ -1,12 +1,12 @@
 var mongo = require('mongodb');
- 
+
 var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
- 
+
 var server = new Server('localhost', 27017, {auto_reconnect: true});
 db = new Db('ridesdb', server);
- 
+
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'ridesdb' database");
@@ -18,7 +18,7 @@ db.open(function(err, db) {
         });
     }
 });
- 
+
 exports.findById = function(req, res) {
     var id = req.params.id;
     console.log('Retrieving ride: ' + id);
@@ -28,52 +28,51 @@ exports.findById = function(req, res) {
         });
     });
 };
- 
+
 exports.findAll = function(req, res) {
     db.collection('rides', function(err, collection) {
         collection.find().toArray(function(err, items) {
-            res.send(items);
+            res.send({rides: items});
         });
     });
 };
- 
- 
- 
+
+
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 // Populate database with sample data -- Only used once: the first time the application is started.
 // You'd typically not find this code in a real-life app, since the database would already exist.
 var populateDB = function() {
- 
-    var rides = 
-    [
+
+    var rides = [
      {
-  	title: 'Haw Ridge',
-   	type: 'Mountain',
-   	length: 25
+        title: 'Haw Ridge',
+        type: 'Mountain',
+        length: 25
      },
      {
-   	title: 'Foothills Parkway',
-   	type: 'Road',
-   	length: 50
+        title: 'Foothills Parkway',
+        type: 'Road',
+        length: 50
      },
      {
-    	title: 'South Knox',
-    	type: 'Mountain',
-    	length: 30
+        title: 'South Knox',
+        type: 'Mountain',
+        length: 30
      },
      {
-    	title: 'Tsali',
-    	type: 'Mountain',
-    	length: 20
+        title: 'Tsali',
+        type: 'Mountain',
+        length: 20
      },
      {
-    	title: 'West Knoxville',
-    	type: 'Road',
-    	length: 15
+        title: 'West Knoxville',
+        type: 'Road',
+        length: 15
      }];
- 
+
     db.collection('rides', function(err, collection) {
         collection.insert(rides, {safe:true}, function(err, result) {});
     });
- 
+
 };
