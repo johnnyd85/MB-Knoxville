@@ -5,16 +5,6 @@ App.Router.map(function() {
     this.resource('rides');
 });
 
-// IndexRoute - home page
-App.IndexRoute = Ember.Route.extend({
-    model: function(){
-        return [
-            {firstName: 'John', lastName: 'Dillman'},
-            {firstName: 'Nick', lastName: 'Shoemaker'}
-        ];
-    }
-});
-
 // RidesRoute - display a list of rides
 App.RidesRoute = Ember.Route.extend({
     model: function() {
@@ -28,6 +18,27 @@ App.Ride = DS.Model.extend({
     title: DS.attr('string'),
     type: DS.attr('string'),
     length: DS.attr('number'),
+});
+
+App.IndexController = Ember.Controller.extend({
+  selectedType: "Mountain",
+  types: ["Road","Mountain","Around Town"],
+  actions: {
+    createRide: function() {
+      var ride = this.store.createRecord('ride', {
+        title:this.get('title'),
+        type: this.get('type'),
+        length: this.get('length')
+      });
+      
+      var controller = this;
+      ride.save().then(function(ride){
+        controller.set('title', '');
+        controller.set('length', '');
+      });
+    }
+    
+  }
 });
 
 // DataTableView - take the rides models and put them into a jQuery data table

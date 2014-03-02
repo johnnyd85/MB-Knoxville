@@ -16,9 +16,7 @@
   <script src="script.js"></script>
 </head>
 <body>
-  
-  <script type="text/x-handlebars" data-template-name="application">
-    
+   <script type="text/x-handlebars" data-template-name="application">
     <div class="navbar navbar-inverse">
       <div class='container'>
         <ul class ='nav navbar-nav navbar-left'>
@@ -37,40 +35,27 @@
       <hr />
       <p class='pull-left'>&copy; 2014 by Johnny D</p>
     </footer>
-
   </script>
-
   <script type="text/x-handlebars" data-template-name="index">
-    
-    <form role="form">
-      <div class="form-group">
-    	<label>Ride name</label>
-    	<input class="form-control" placeholder="Enter name">
-      </div>
-      <div class="form-group">
-    	<label>Ride type</label>
-     	<select class="form-control">
-      	<option>Road</option>
-      	<option>Mountain</option>
-      	<option>Around Town</option>
-     	</select>
-      </div>
-      <div class="form-group">
-    	<label>Ride length</label>
-    	<input class="form-control" placeholder="Enter length">
-      </div>
-      <button type="submit" class="btn btn-primary">Add Ride</button>
-    </form> 
-
+      <form>
+        <div class="form-group">
+          <label>Ride name{{input type="text" value=title class="form-control" placeholder="Enter name"}}</label>
+        </div>
+        <div class="form-group">
+          <label>Ride type {{view Ember.Select value=type class="form-control" content=types}}</label>
+        </div>
+        <div class="form-group">
+          <label>Ride length{{input type="text" value=length class="form-control" placeholder="Enter length"}}</label>
+        </div>
+        <button {{action 'createRide' toggleProperty "rideCreated"}} class="btn btn-primary">Add Ride</button>
+      </form>
   </script>
-
   <script type="text/x-handlebars" data-template-name="rides">
-
+      
      <div class='col-md-12'>
       {{view App.DataTableView ridesBinding="model"}}
     </div>
     
   </script>
-
 </body>
 </html>

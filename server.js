@@ -18,7 +18,8 @@ app.configure(function () {
 
 // Set up our server routes
 app.get('/rides', ride.findAll);
-app.get('/rides/:id', ride.findById);
+/*app.get('/rides/:id', ride.findById);*/
+app.post('/rides', ride.addRide);
 
 // Run our express server using http
 http.createServer(app).listen(app.get('port'), function () {

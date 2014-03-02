@@ -46,6 +46,23 @@ exports.findAll = function(req, res) {
     });
 };
 
+//Allow our server app to access the addRide function, which adds new a ride
+
+exports.addRide = function(req, res) {
+    var ride = req.body;
+    console.log('Adding ride: ' + JSON.stringify(ride));
+    db.collection('rides', function(err, collection) {
+        collection.insert(ride, {safe:true}, function(err, result) {
+            if (err) {
+                res.send({'error':'An error has occurred'});
+            } else {
+                console.log('Success: ' + JSON.stringify(result[0]));
+                res.send(result[0]);
+            }
+        });
+    });
+};
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 // Populate database with sample data -- Only used once: the first time the application is started.
 // You'd typically not find this code in a real-life app, since the database would already exist.
